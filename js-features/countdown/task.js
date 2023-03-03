@@ -24,7 +24,7 @@ function decTime() {
     if(hours === 0 && minutes === 0 && seconds === 0) {
         alert("Вы победили в конкурсе!");
         clearInterval(idInterval);
-        
+        window.location = "photo.rar";
     }
     else {
         if(seconds > 0){
