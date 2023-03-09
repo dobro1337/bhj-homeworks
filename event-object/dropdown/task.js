@@ -1,28 +1,15 @@
 let dropDown =  Array.from(document.querySelectorAll(".dropdown"));
 dropDown.forEach((dropDownElement) =>{ //перебераем все dropDown.
-    let childDropDown = Array.from(dropDownElement.children);//получаем дочерние элементы конкретного dropDown.
-    let dropDownValue = null;
-    let dropDownList = null;
-    childDropDown.forEach((element) => {
-        switch(element.className) {
-            case "dropdown__value":{
-                dropDownValue = element;
-                break;
-            }
-            case "dropdown__list":{
-                dropDownList = element;
-                break;
-            }
-            default : 0;
-        }
-    })
-
+    let dropDownValue = dropDownElement.querySelectorAll(".dropdown__value")[0];
+    let dropDownList = dropDownElement.querySelectorAll(".dropdown__list")[0];
+    let dropDownLink = Array.from(dropDownList.querySelectorAll(".dropdown__link"));
+    
     dropDownElement.onclick = function () {//записываем функцию вкл и выкл dropDown
         dropDownList.className = (dropDownList.className === "dropdown__list dropdown__list_active") ?  "dropdown__list" :  "dropdown__list dropdown__list_active";
     }
-    let childDDList = Array.from(dropDownList.children);//получаем дочерние элементы dropDownList (тег li)
-    childDDList.forEach((element) => {
-        element.children[0].onclick = function () {//устанавливаем в функцию клика для тега a 
+
+    dropDownLink.forEach((element) => {
+        element.onclick = function () {
             dropDownValue.textContent = this.textContent;
             return false;
         }

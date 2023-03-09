@@ -4,16 +4,24 @@ class Game {
     this.wordElement = container.querySelector('.word');
     this.winsElement = container.querySelector('.status__wins');
     this.lossElement = container.querySelector('.status__loss');
+    this.time = document.querySelector(".timer");
+    this.idTimer = null;
+    
+    this.decTimer();
 
     this.reset();
 
     this.registerEvents();
+  }
+  decTimer() {
+    this.time.textContent -=1;
   }
 
   reset() {
     this.setNewWord();
     this.winsElement.textContent = 0;
     this.lossElement.textContent = 0;
+    this.time.textContent = this.wordElement.childElementCount;
   }
 
   registerEvents() {
@@ -25,8 +33,26 @@ class Game {
       При неправильном вводе символа - this.fail();
       DOM-элемент текущего символа находится в свойстве this.currentSymbol.
      */
-  }
+      if(this.idTimer === null) {
+        this.idTimer = setInterval(() => {
+          this.decTimer();
+          if(this.time.textContent <= 0){
+            this.fail();
+          }
+        },1000);
+      }
 
+      let entityThis = this; 
+      function entryKey(event){
+        if(entityThis.currentSymbol.textContent.toUpperCase().charCodeAt(0) === event.keyCode){
+          entityThis.success();
+        }
+        else {
+          entityThis.fail();
+        }
+      }
+      document.addEventListener('keydown',entryKey);
+  }
   success() {
     if(this.currentSymbol.classList.contains("symbol_current")) this.currentSymbol.classList.remove("symbol_current");
     this.currentSymbol.classList.add('symbol_correct');
@@ -54,7 +80,7 @@ class Game {
 
   setNewWord() {
     const word = this.getWord();
-
+    this.time.textContent = word.length;
     this.renderWord(word);
   }
 
@@ -91,4 +117,3 @@ class Game {
 }
 
 new Game(document.getElementById('game'))
-
