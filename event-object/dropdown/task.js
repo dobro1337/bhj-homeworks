@@ -1,5 +1,5 @@
 let dropDown =  Array.from(document.querySelectorAll(".dropdown"));
-dropDown.forEach((dropDownElement) =>{ //перебераем все dropDown.
+dropDown.forEach((dropDownElement) =>{ //перебираем все dropDown.
     let dropDownValue = dropDownElement.querySelectorAll(".dropdown__value")[0];
     let dropDownList = dropDownElement.querySelectorAll(".dropdown__list")[0];
     let dropDownLink = Array.from(dropDownList.querySelectorAll(".dropdown__link"));
