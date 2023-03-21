@@ -51,7 +51,7 @@ function move(picture,cart) {
     picture2.clientWidth;// обращаемся к геттеру , чтобы стили применились
     picture2.style.transform+="translateX("+distanceX+"px)";
     picture2.style.transform+="translateY("+distanceY+"px)";
-    picture2.style.transition="1s"; // переходное состояние между 2 состояниями элемента
+    picture2.style.transition="1s"; // переходное состояние между 2 состояниями элемента 
   
     setTimeout(()=>document.body.removeChild(picture2),650);// удаляем созданную фотографию
   }
