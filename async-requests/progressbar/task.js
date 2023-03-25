@@ -16,6 +16,7 @@ form.addEventListener('submit', event => {
         else {
             alert("ошибка " + xhr.error)
         }
+        console.log(xhr.status);
     }
     xhr.send(formData);
     event.preventDefault();
