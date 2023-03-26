@@ -6,8 +6,7 @@ textArea.addEventListener("input",(event) => {
     localStorage.setItem("text",event.target.value);
 })
 form.addEventListener("reset",() => {
-    delete localStorage.text;
+    localStorage.removeItem("text");
 })
-if(text) {
-    textArea.value = text;
-}
+
+textArea.value = text;

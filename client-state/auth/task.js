@@ -10,18 +10,19 @@ form.addEventListener("submit",(event) => {
     if (invocation) {
         let formData = new FormData(form);
         invocation.open("POST", url, true);
-        invocation.onreadystatechange = function () {
-            if (invocation.status === 201 && invocation.readyState === XMLHttpRequest.DONE) {
-                let ansver = JSON.parse(invocation.responseText);
-                if(ansver["success"]){
-                    welcome.innerHTML = `Добро пожаловать, пользователь #<span id=user_id>${ansver["user_id"]}</span>`;
-                    welcome.classList.add("welcome_active");
-                    document.cookie ='id=' + ansver["user_id"];
-                }
-                else {
-                    alert("Неверный логин/пароль");
-                }
+        invocation.responseType = 'json';
+        invocation.onload = function () {
+            let ansver = invocation.response;
+            if(ansver["success"]){
+                welcome.innerHTML = `Добро пожаловать, пользователь #<span id=user_id>${ansver["user_id"]}</span>`;
+                welcome.classList.add("welcome_active");
+                document.cookie ='id=' + ansver["user_id"];
+                form.reset();
             }
+            else {
+                alert("Неверный логин/пароль");
+            }
+            
         }
         invocation.send(formData);
     }
